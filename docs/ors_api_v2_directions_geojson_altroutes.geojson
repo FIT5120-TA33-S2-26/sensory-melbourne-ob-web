@@ -1,0 +1,1067 @@
+{
+    "type": "FeatureCollection",
+    "bbox": [
+        144.961273,
+        -37.810706,
+        144.966293,
+        -37.808772
+    ],
+    "features": [
+        {
+            "bbox": [
+                144.961273,
+                -37.810706,
+                144.966293,
+                -37.808889
+            ],
+            "type": "Feature",
+            "properties": {
+                "segments": [
+                    {
+                        "distance": 517.2,
+                        "duration": 372.4,
+                        "steps": [
+                            {
+                                "distance": 27.6,
+                                "duration": 19.9,
+                                "type": 11,
+                                "instruction": "Head north",
+                                "name": "-",
+                                "way_points": [
+                                    0,
+                                    1
+                                ]
+                            },
+                            {
+                                "distance": 230.8,
+                                "duration": 166.2,
+                                "type": 1,
+                                "instruction": "Turn right",
+                                "name": "-",
+                                "way_points": [
+                                    1,
+                                    10
+                                ]
+                            },
+                            {
+                                "distance": 5.1,
+                                "duration": 3.7,
+                                "type": 1,
+                                "instruction": "Turn right",
+                                "name": "-",
+                                "way_points": [
+                                    10,
+                                    11
+                                ]
+                            },
+                            {
+                                "distance": 23,
+                                "duration": 16.5,
+                                "type": 0,
+                                "instruction": "Turn left",
+                                "name": "-",
+                                "way_points": [
+                                    11,
+                                    16
+                                ]
+                            },
+                            {
+                                "distance": 4.9,
+                                "duration": 3.5,
+                                "type": 0,
+                                "instruction": "Turn left",
+                                "name": "-",
+                                "way_points": [
+                                    16,
+                                    17
+                                ]
+                            },
+                            {
+                                "distance": 211.7,
+                                "duration": 152.4,
+                                "type": 1,
+                                "instruction": "Turn right",
+                                "name": "-",
+                                "way_points": [
+                                    17,
+                                    22
+                                ]
+                            },
+                            {
+                                "distance": 7.7,
+                                "duration": 5.5,
+                                "type": 0,
+                                "instruction": "Turn left onto Russell Street",
+                                "name": "Russell Street",
+                                "way_points": [
+                                    22,
+                                    23
+                                ]
+                            },
+                            {
+                                "distance": 6.4,
+                                "duration": 4.6,
+                                "type": 13,
+                                "instruction": "Keep right onto Russell Street",
+                                "name": "Russell Street",
+                                "way_points": [
+                                    23,
+                                    24
+                                ]
+                            },
+                            {
+                                "distance": 0,
+                                "duration": 0,
+                                "type": 10,
+                                "instruction": "Arrive at Russell Street, on the left",
+                                "name": "-",
+                                "way_points": [
+                                    24,
+                                    24
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "extras": {
+                    "waytype": {
+                        "values": [
+                            [
+                                0,
+                                24,
+                                7
+                            ]
+                        ],
+                        "summary": [
+                            {
+                                "value": 7,
+                                "distance": 517.2,
+                                "amount": 100
+                            }
+                        ]
+                    },
+                    "surface": {
+                        "values": [
+                            [
+                                0,
+                                11,
+                                14
+                            ],
+                            [
+                                11,
+                                15,
+                                3
+                            ],
+                            [
+                                15,
+                                21,
+                                14
+                            ],
+                            [
+                                21,
+                                22,
+                                3
+                            ],
+                            [
+                                22,
+                                24,
+                                0
+                            ]
+                        ],
+                        "summary": [
+                            {
+                                "value": 14,
+                                "distance": 477,
+                                "amount": 92.22
+                            },
+                            {
+                                "value": 3,
+                                "distance": 26.1,
+                                "amount": 5.04
+                            },
+                            {
+                                "value": 0,
+                                "distance": 14.1,
+                                "amount": 2.73
+                            }
+                        ]
+                    },
+                    "suitability": {
+                        "values": [
+                            [
+                                0,
+                                22,
+                                8
+                            ],
+                            [
+                                22,
+                                24,
+                                5
+                            ]
+                        ],
+                        "summary": [
+                            {
+                                "value": 8,
+                                "distance": 503.1,
+                                "amount": 97.27
+                            },
+                            {
+                                "value": 5,
+                                "distance": 14.1,
+                                "amount": 2.73
+                            }
+                        ]
+                    }
+                },
+                "warnings": [
+                    {
+                        "code": 4,
+                        "message": "Extra info requested but not available: osmid"
+                    }
+                ],
+                "way_points": [
+                    0,
+                    24
+                ],
+                "summary": {
+                    "distance": 517.2,
+                    "duration": 372.4
+                }
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.961379,
+                        -37.810706
+                    ],
+                    [
+                        144.961273,
+                        -37.810475
+                    ],
+                    [
+                        144.961344,
+                        -37.810456
+                    ],
+                    [
+                        144.96137,
+                        -37.81045
+                    ],
+                    [
+                        144.96147,
+                        -37.810421
+                    ],
+                    [
+                        144.961486,
+                        -37.810416
+                    ],
+                    [
+                        144.961564,
+                        -37.810383
+                    ],
+                    [
+                        144.962671,
+                        -37.810057
+                    ],
+                    [
+                        144.962689,
+                        -37.810052
+                    ],
+                    [
+                        144.962756,
+                        -37.810032
+                    ],
+                    [
+                        144.963732,
+                        -37.809745
+                    ],
+                    [
+                        144.963775,
+                        -37.809776
+                    ],
+                    [
+                        144.963818,
+                        -37.809763
+                    ],
+                    [
+                        144.963838,
+                        -37.809757
+                    ],
+                    [
+                        144.963957,
+                        -37.809721
+                    ],
+                    [
+                        144.963972,
+                        -37.809716
+                    ],
+                    [
+                        144.964019,
+                        -37.809702
+                    ],
+                    [
+                        144.964029,
+                        -37.809659
+                    ],
+                    [
+                        144.964387,
+                        -37.809552
+                    ],
+                    [
+                        144.964541,
+                        -37.809505
+                    ],
+                    [
+                        144.964916,
+                        -37.809399
+                    ],
+                    [
+                        144.966213,
+                        -37.809032
+                    ],
+                    [
+                        144.966293,
+                        -37.809008
+                    ],
+                    [
+                        144.966264,
+                        -37.808943
+                    ],
+                    [
+                        144.966239,
+                        -37.808889
+                    ]
+                ]
+            }
+        },
+        {
+            "bbox": [
+                144.961273,
+                -37.810706,
+                144.966239,
+                -37.808772
+            ],
+            "type": "Feature",
+            "properties": {
+                "segments": [
+                    {
+                        "distance": 540.7,
+                        "duration": 389.3,
+                        "steps": [
+                            {
+                                "distance": 27.6,
+                                "duration": 19.9,
+                                "type": 11,
+                                "instruction": "Head north",
+                                "name": "-",
+                                "way_points": [
+                                    0,
+                                    1
+                                ]
+                            },
+                            {
+                                "distance": 27.6,
+                                "duration": 19.9,
+                                "type": 1,
+                                "instruction": "Turn right",
+                                "name": "-",
+                                "way_points": [
+                                    1,
+                                    6
+                                ]
+                            },
+                            {
+                                "distance": 20.8,
+                                "duration": 15,
+                                "type": 0,
+                                "instruction": "Turn left",
+                                "name": "-",
+                                "way_points": [
+                                    6,
+                                    8
+                                ]
+                            },
+                            {
+                                "distance": 6.6,
+                                "duration": 4.8,
+                                "type": 12,
+                                "instruction": "Keep left",
+                                "name": "-",
+                                "way_points": [
+                                    8,
+                                    10
+                                ]
+                            },
+                            {
+                                "distance": 126.4,
+                                "duration": 91,
+                                "type": 1,
+                                "instruction": "Turn right",
+                                "name": "-",
+                                "way_points": [
+                                    10,
+                                    13
+                                ]
+                            },
+                            {
+                                "distance": 317.8,
+                                "duration": 228.8,
+                                "type": 1,
+                                "instruction": "Turn right",
+                                "name": "-",
+                                "way_points": [
+                                    13,
+                                    25
+                                ]
+                            },
+                            {
+                                "distance": 5.5,
+                                "duration": 4,
+                                "type": 1,
+                                "instruction": "Turn right onto Russell Street",
+                                "name": "Russell Street",
+                                "way_points": [
+                                    25,
+                                    26
+                                ]
+                            },
+                            {
+                                "distance": 8.4,
+                                "duration": 6,
+                                "type": 13,
+                                "instruction": "Keep right onto Russell Street",
+                                "name": "Russell Street",
+                                "way_points": [
+                                    26,
+                                    27
+                                ]
+                            },
+                            {
+                                "distance": 0,
+                                "duration": 0,
+                                "type": 10,
+                                "instruction": "Arrive at Russell Street, on the right",
+                                "name": "-",
+                                "way_points": [
+                                    27,
+                                    27
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "extras": {
+                    "waytype": {
+                        "values": [
+                            [
+                                0,
+                                27,
+                                7
+                            ]
+                        ],
+                        "summary": [
+                            {
+                                "value": 7,
+                                "distance": 540.7,
+                                "amount": 100
+                            }
+                        ]
+                    },
+                    "surface": {
+                        "values": [
+                            [
+                                0,
+                                6,
+                                14
+                            ],
+                            [
+                                6,
+                                9,
+                                3
+                            ],
+                            [
+                                9,
+                                10,
+                                14
+                            ],
+                            [
+                                10,
+                                11,
+                                3
+                            ],
+                            [
+                                11,
+                                17,
+                                14
+                            ],
+                            [
+                                17,
+                                20,
+                                3
+                            ],
+                            [
+                                20,
+                                22,
+                                14
+                            ],
+                            [
+                                22,
+                                25,
+                                3
+                            ],
+                            [
+                                25,
+                                27,
+                                0
+                            ]
+                        ],
+                        "summary": [
+                            {
+                                "value": 3,
+                                "distance": 316.5,
+                                "amount": 58.54
+                            },
+                            {
+                                "value": 14,
+                                "distance": 210.3,
+                                "amount": 38.89
+                            },
+                            {
+                                "value": 0,
+                                "distance": 13.9,
+                                "amount": 2.57
+                            }
+                        ]
+                    },
+                    "suitability": {
+                        "values": [
+                            [
+                                0,
+                                25,
+                                8
+                            ],
+                            [
+                                25,
+                                27,
+                                5
+                            ]
+                        ],
+                        "summary": [
+                            {
+                                "value": 8,
+                                "distance": 526.8,
+                                "amount": 97.43
+                            },
+                            {
+                                "value": 5,
+                                "distance": 13.9,
+                                "amount": 2.57
+                            }
+                        ]
+                    }
+                },
+                "warnings": [
+                    {
+                        "code": 4,
+                        "message": "Extra info requested but not available: osmid"
+                    }
+                ],
+                "way_points": [
+                    0,
+                    27
+                ],
+                "summary": {
+                    "distance": 540.7,
+                    "duration": 389.3
+                }
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.961379,
+                        -37.810706
+                    ],
+                    [
+                        144.961273,
+                        -37.810475
+                    ],
+                    [
+                        144.961344,
+                        -37.810456
+                    ],
+                    [
+                        144.96137,
+                        -37.81045
+                    ],
+                    [
+                        144.96147,
+                        -37.810421
+                    ],
+                    [
+                        144.961486,
+                        -37.810416
+                    ],
+                    [
+                        144.961564,
+                        -37.810383
+                    ],
+                    [
+                        144.961527,
+                        -37.810303
+                    ],
+                    [
+                        144.961483,
+                        -37.810208
+                    ],
+                    [
+                        144.961463,
+                        -37.810164
+                    ],
+                    [
+                        144.961457,
+                        -37.810151
+                    ],
+                    [
+                        144.962135,
+                        -37.809954
+                    ],
+                    [
+                        144.962746,
+                        -37.809775
+                    ],
+                    [
+                        144.962806,
+                        -37.809757
+                    ],
+                    [
+                        144.962822,
+                        -37.809768
+                    ],
+                    [
+                        144.963632,
+                        -37.80952
+                    ],
+                    [
+                        144.963652,
+                        -37.809505
+                    ],
+                    [
+                        144.963689,
+                        -37.809494
+                    ],
+                    [
+                        144.963718,
+                        -37.809485
+                    ],
+                    [
+                        144.963835,
+                        -37.809451
+                    ],
+                    [
+                        144.963854,
+                        -37.809445
+                    ],
+                    [
+                        144.963889,
+                        -37.809435
+                    ],
+                    [
+                        144.963926,
+                        -37.809437
+                    ],
+                    [
+                        144.964335,
+                        -37.809317
+                    ],
+                    [
+                        144.9661,
+                        -37.8088
+                    ],
+                    [
+                        144.966183,
+                        -37.808772
+                    ],
+                    [
+                        144.966206,
+                        -37.808818
+                    ],
+                    [
+                        144.966239,
+                        -37.808889
+                    ]
+                ]
+            }
+        },
+        {
+            "bbox": [
+                144.961273,
+                -37.810706,
+                144.966239,
+                -37.808772
+            ],
+            "type": "Feature",
+            "properties": {
+                "segments": [
+                    {
+                        "distance": 538.4,
+                        "duration": 387.6,
+                        "steps": [
+                            {
+                                "distance": 27.6,
+                                "duration": 19.9,
+                                "type": 11,
+                                "instruction": "Head north",
+                                "name": "-",
+                                "way_points": [
+                                    0,
+                                    1
+                                ]
+                            },
+                            {
+                                "distance": 230.8,
+                                "duration": 166.2,
+                                "type": 1,
+                                "instruction": "Turn right",
+                                "name": "-",
+                                "way_points": [
+                                    1,
+                                    10
+                                ]
+                            },
+                            {
+                                "distance": 26.5,
+                                "duration": 19.1,
+                                "type": 0,
+                                "instruction": "Turn left",
+                                "name": "-",
+                                "way_points": [
+                                    10,
+                                    15
+                                ]
+                            },
+                            {
+                                "distance": 239.6,
+                                "duration": 172.5,
+                                "type": 1,
+                                "instruction": "Turn right",
+                                "name": "-",
+                                "way_points": [
+                                    15,
+                                    25
+                                ]
+                            },
+                            {
+                                "distance": 5.5,
+                                "duration": 4,
+                                "type": 1,
+                                "instruction": "Turn right onto Russell Street",
+                                "name": "Russell Street",
+                                "way_points": [
+                                    25,
+                                    26
+                                ]
+                            },
+                            {
+                                "distance": 8.4,
+                                "duration": 6,
+                                "type": 13,
+                                "instruction": "Keep right onto Russell Street",
+                                "name": "Russell Street",
+                                "way_points": [
+                                    26,
+                                    27
+                                ]
+                            },
+                            {
+                                "distance": 0,
+                                "duration": 0,
+                                "type": 10,
+                                "instruction": "Arrive at Russell Street, on the right",
+                                "name": "-",
+                                "way_points": [
+                                    27,
+                                    27
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "extras": {
+                    "waytype": {
+                        "values": [
+                            [
+                                0,
+                                27,
+                                7
+                            ]
+                        ],
+                        "summary": [
+                            {
+                                "value": 7,
+                                "distance": 538.4,
+                                "amount": 100
+                            }
+                        ]
+                    },
+                    "surface": {
+                        "values": [
+                            [
+                                0,
+                                10,
+                                14
+                            ],
+                            [
+                                10,
+                                14,
+                                3
+                            ],
+                            [
+                                14,
+                                17,
+                                14
+                            ],
+                            [
+                                17,
+                                20,
+                                3
+                            ],
+                            [
+                                20,
+                                22,
+                                14
+                            ],
+                            [
+                                22,
+                                25,
+                                3
+                            ],
+                            [
+                                25,
+                                27,
+                                0
+                            ]
+                        ],
+                        "summary": [
+                            {
+                                "value": 14,
+                                "distance": 273,
+                                "amount": 50.7
+                            },
+                            {
+                                "value": 3,
+                                "distance": 251.6,
+                                "amount": 46.72
+                            },
+                            {
+                                "value": 0,
+                                "distance": 13.9,
+                                "amount": 2.58
+                            }
+                        ]
+                    },
+                    "suitability": {
+                        "values": [
+                            [
+                                0,
+                                25,
+                                8
+                            ],
+                            [
+                                25,
+                                27,
+                                5
+                            ]
+                        ],
+                        "summary": [
+                            {
+                                "value": 8,
+                                "distance": 524.5,
+                                "amount": 97.42
+                            },
+                            {
+                                "value": 5,
+                                "distance": 13.9,
+                                "amount": 2.58
+                            }
+                        ]
+                    }
+                },
+                "warnings": [
+                    {
+                        "code": 4,
+                        "message": "Extra info requested but not available: osmid"
+                    }
+                ],
+                "way_points": [
+                    0,
+                    27
+                ],
+                "summary": {
+                    "distance": 538.4,
+                    "duration": 387.6
+                }
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        144.961379,
+                        -37.810706
+                    ],
+                    [
+                        144.961273,
+                        -37.810475
+                    ],
+                    [
+                        144.961344,
+                        -37.810456
+                    ],
+                    [
+                        144.96137,
+                        -37.81045
+                    ],
+                    [
+                        144.96147,
+                        -37.810421
+                    ],
+                    [
+                        144.961486,
+                        -37.810416
+                    ],
+                    [
+                        144.961564,
+                        -37.810383
+                    ],
+                    [
+                        144.962671,
+                        -37.810057
+                    ],
+                    [
+                        144.962689,
+                        -37.810052
+                    ],
+                    [
+                        144.962756,
+                        -37.810032
+                    ],
+                    [
+                        144.963732,
+                        -37.809745
+                    ],
+                    [
+                        144.963726,
+                        -37.809733
+                    ],
+                    [
+                        144.963706,
+                        -37.809686
+                    ],
+                    [
+                        144.963653,
+                        -37.809566
+                    ],
+                    [
+                        144.96364,
+                        -37.809537
+                    ],
+                    [
+                        144.963632,
+                        -37.80952
+                    ],
+                    [
+                        144.963652,
+                        -37.809505
+                    ],
+                    [
+                        144.963689,
+                        -37.809494
+                    ],
+                    [
+                        144.963718,
+                        -37.809485
+                    ],
+                    [
+                        144.963835,
+                        -37.809451
+                    ],
+                    [
+                        144.963854,
+                        -37.809445
+                    ],
+                    [
+                        144.963889,
+                        -37.809435
+                    ],
+                    [
+                        144.963926,
+                        -37.809437
+                    ],
+                    [
+                        144.964335,
+                        -37.809317
+                    ],
+                    [
+                        144.9661,
+                        -37.8088
+                    ],
+                    [
+                        144.966183,
+                        -37.808772
+                    ],
+                    [
+                        144.966206,
+                        -37.808818
+                    ],
+                    [
+                        144.966239,
+                        -37.808889
+                    ]
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "attribution": "openrouteservice.org | OpenStreetMap contributors",
+        "service": "routing",
+        "timestamp": 1786183499321,
+        "query": {
+            "coordinates": [
+                [
+                    144.9614,
+                    -37.8107
+                ],
+                [
+                    144.9662,
+                    -37.8089
+                ]
+            ],
+            "profile": "foot-walking",
+            "profileName": "foot-walking",
+            "preference": "recommended",
+            "format": "geojson",
+            "units": "m",
+            "language": "en",
+            "geometry": true,
+            "instructions": true,
+            "instructions_format": "text",
+            "extra_info": [
+                "waytype",
+                "osmid",
+                "surface",
+                "suitability"
+            ],
+            "alternative_routes": {
+                "target_count": 3,
+                "weight_factor": 2,
+                "share_factor": 0.8
+            }
+        },
+        "engine": {
+            "version": "9.9.0",
+            "build_date": "2026-06-12T10:08:58Z",
+            "graph_date": "2026-07-28T19:03:26Z",
+            "osm_date": "2026-07-20T00:00:00Z"
+        }
+    }
+}
