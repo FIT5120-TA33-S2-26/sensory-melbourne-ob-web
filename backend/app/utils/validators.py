@@ -26,3 +26,12 @@ def route_request(payload) -> tuple[dict[str, float], dict[str, float]]:
     if origin == destination:
         raise ValidationError("origin and destination must be different")
     return origin, destination
+
+
+def search_text(value) -> str:
+    query = (value or "").strip()
+    if len(query) < 2:
+        raise ValidationError("q must contain at least 2 characters")
+    if len(query) > 120:
+        raise ValidationError("q must not exceed 120 characters")
+    return query

@@ -34,6 +34,16 @@ class Config:
         "ORS_DIRECTIONS_URL",
         "https://api.openrouteservice.org/v2/directions/foot-walking/geojson",
     )
+    ORS_GEOCODE_AUTOCOMPLETE_URL = os.environ.get(
+        "ORS_GEOCODE_AUTOCOMPLETE_URL",
+        "https://api.openrouteservice.org/geocode/autocomplete",
+    )
+    ORS_GEOCODE_REVERSE_URL = os.environ.get(
+        "ORS_GEOCODE_REVERSE_URL",
+        "https://api.openrouteservice.org/geocode/reverse",
+    )
     ORS_TIMEOUT_SECONDS = float(os.environ.get("ORS_TIMEOUT_SECONDS", "15"))
+    GEOCODE_RESULT_LIMIT = int(os.environ.get("GEOCODE_RESULT_LIMIT", "6"))
+    MELBOURNE_CBD_BBOX = (144.93, -37.83, 144.99, -37.79)
     DATABASE_URL = os.environ.get("DATABASE_URL", "")
     DATA_MODEL_PATH = _data_model_path()
