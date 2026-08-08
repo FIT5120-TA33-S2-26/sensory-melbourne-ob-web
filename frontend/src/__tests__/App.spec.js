@@ -9,6 +9,7 @@ import HomeView from '../views/HomeView.vue'
 import LandingView from '../views/LandingView.vue'
 import NavigationView from '../views/NavigationView.vue'
 import RoutesView from '../views/RoutesView.vue'
+import { useNavigationStore } from '../stores/navigation'
 
 const routes = [
   { path: '/', component: LandingView },
@@ -17,11 +18,39 @@ const routes = [
   { path: '/navigation', component: NavigationView },
 ]
 
-async function mountAt(path) {
+const testRoutes = [
+  {
+    id: 'calmest', label: 'Calmest', description: 'Low sensory load', duration: 8,
+    distance: 620, stress: 22, crowd: 'Low', color: '#168f86', coveragePct: 100,
+    geometry: [[-37.81, 144.96], [-37.80, 144.97]],
+    instructions: [{ text: 'Head east towards Swanston Street', distance: '120 m', stress: 22, color: '#168f86' }],
+  },
+  {
+    id: 'balanced', label: 'Balanced', description: 'Moderate sensory load', duration: 7,
+    distance: 540, stress: 44, crowd: 'Medium', color: '#5b6fe5', coveragePct: 100,
+    geometry: [[-37.81, 144.96], [-37.80, 144.97]], instructions: [],
+  },
+  {
+    id: 'fastest', label: 'Fastest', description: 'High sensory load', duration: 6,
+    distance: 480, stress: 75, crowd: 'High', color: '#ef8354', coveragePct: 100,
+    geometry: [[-37.81, 144.96], [-37.80, 144.97]], instructions: [],
+  },
+]
+
+async function mountAt(path, { withRoutes = false } = {}) {
   const router = createRouter({ history: createMemoryHistory(), routes })
+  const pinia = createPinia()
+  setActivePinia(pinia)
+  if (withRoutes) {
+    const navigation = useNavigationStore()
+    navigation.destination = 'State Library Victoria'
+    navigation.routes = testRoutes
+    navigation.selectedRouteId = 'calmest'
+    navigation.routeStatus = 'success'
+  }
   await router.push(path)
   await router.isReady()
-  return mount(App, { global: { plugins: [router, createPinia()] } })
+  return mount(App, { global: { plugins: [router, pinia] } })
 }
 
 describe('Sensory Melbourne screens', () => {
@@ -35,19 +64,19 @@ describe('Sensory Melbourne screens', () => {
 
   it('renders the home route search', async () => {
     const wrapper = await mountAt('/home')
-    expect(wrapper.text()).toContain('Melbourne Central')
+    expect(wrapper.text()).toContain('Current location')
     expect(wrapper.text()).toContain('Where would you like to go?')
   })
 
   it('renders three candidate route options', async () => {
-    const wrapper = await mountAt('/routes')
+    const wrapper = await mountAt('/routes', { withRoutes: true })
     expect(wrapper.findAll('.route-card')).toHaveLength(3)
     expect(wrapper.text()).toContain('Calmest')
     expect(wrapper.text()).toContain('Fastest')
   })
 
   it('renders written navigation instructions', async () => {
-    const wrapper = await mountAt('/navigation')
+    const wrapper = await mountAt('/navigation', { withRoutes: true })
     expect(wrapper.text()).toContain('Next instruction')
     expect(wrapper.text()).toContain('Head east towards Swanston Street')
   })
