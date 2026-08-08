@@ -1,29 +1,54 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 import { mount } from '@vue/test-utils'
+import { createPinia, setActivePinia } from 'pinia'
+import { createMemoryHistory, createRouter } from 'vue-router'
+
 import App from '../App.vue'
+import HomeView from '../views/HomeView.vue'
+import LandingView from '../views/LandingView.vue'
+import NavigationView from '../views/NavigationView.vue'
+import RoutesView from '../views/RoutesView.vue'
 
-describe('App', () => {
-  afterEach(() => vi.restoreAllMocks())
+const routes = [
+  { path: '/', component: LandingView },
+  { path: '/home', component: HomeView },
+  { path: '/routes', component: RoutesView },
+  { path: '/navigation', component: NavigationView },
+]
 
-  it('renders the application shell', () => {
-    vi.stubGlobal('fetch', vi.fn(() => new Promise(() => {})))
-    const wrapper = mount(App)
-    expect(wrapper.text()).toContain('A calmer way through Melbourne.')
-    expect(wrapper.text()).toContain('Checking connection')
+async function mountAt(path) {
+  const router = createRouter({ history: createMemoryHistory(), routes })
+  await router.push(path)
+  await router.isReady()
+  return mount(App, { global: { plugins: [router, createPinia()] } })
+}
+
+describe('Sensory Melbourne screens', () => {
+  beforeEach(() => setActivePinia(createPinia()))
+
+  it('renders the landing screen', async () => {
+    const wrapper = await mountAt('/')
+    expect(wrapper.text()).toContain('Navigate Melbourne with confidence')
+    expect(wrapper.text()).toContain('Get started')
   })
 
-  it('shows when the API is connected', async () => {
-    vi.stubGlobal(
-      'fetch',
-      vi.fn().mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ status: 'ok', message: 'The web API is running.' }),
-      }),
-    )
+  it('renders the home route search', async () => {
+    const wrapper = await mountAt('/home')
+    expect(wrapper.text()).toContain('Melbourne Central')
+    expect(wrapper.text()).toContain('Where would you like to go?')
+  })
 
-    const wrapper = mount(App)
-    await vi.waitFor(() => expect(wrapper.text()).toContain('Frontend and API connected'))
-    expect(wrapper.text()).toContain('The web API is running.')
+  it('renders three candidate route options', async () => {
+    const wrapper = await mountAt('/routes')
+    expect(wrapper.findAll('.route-card')).toHaveLength(3)
+    expect(wrapper.text()).toContain('Calmest')
+    expect(wrapper.text()).toContain('Fastest')
+  })
+
+  it('renders written navigation instructions', async () => {
+    const wrapper = await mountAt('/navigation')
+    expect(wrapper.text()).toContain('Next instruction')
+    expect(wrapper.text()).toContain('Head east towards Swanston Street')
   })
 })
