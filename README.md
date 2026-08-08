@@ -229,8 +229,8 @@ To test the complete frontend in Chrome:
 4. Set a custom location:
 
 ```text
-Latitude:  -37.8136
-Longitude: 144.9631
+Latitude:  -37.8117
+Longitude: 144.9619
 Timezone:  Australia/Melbourne
 Locale:    en-AU
 ```
