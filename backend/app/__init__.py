@@ -3,6 +3,7 @@ from flask_cors import CORS
 
 from app.api.geocoding import geocoding_blueprint
 from app.api.health import health_blueprint
+from app.api.quiet_spaces import quiet_spaces_blueprint
 from app.api.routes import routes_blueprint
 from app.config import Config
 
@@ -14,5 +15,6 @@ def create_app() -> Flask:
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     app.register_blueprint(geocoding_blueprint)
     app.register_blueprint(health_blueprint)
+    app.register_blueprint(quiet_spaces_blueprint)
     app.register_blueprint(routes_blueprint)
     return app
