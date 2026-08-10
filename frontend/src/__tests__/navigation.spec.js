@@ -82,3 +82,51 @@ describe('navigation store live data flow', () => {
     expect(store.routeError).toContain('Select a destination')
   })
 })
+
+describe('choosing a starting point', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+    vi.clearAllMocks()
+  })
+
+  it('does not prefill the origin box, so page load fires no geocode search', async () => {
+    // Regression: locateUser() used to write the reverse-geocoded label into
+    // originQuery. That field is bound to the search input, whose change
+    // watcher then issued a geocode search for the user's own address on every
+    // page load.
+    getCurrentLocation.mockResolvedValue({ lat: -37.8136, lon: 144.9631 })
+    reverseGeocode.mockResolvedValue({ location: { label: 'Flinders Street' } })
+    const store = useNavigationStore()
+
+    await store.locateUser()
+
+    expect(store.originLabel).toBe('Flinders Street')
+    expect(store.originQuery).toBe('')
+    expect(searchDestinations).not.toHaveBeenCalled()
+  })
+
+  it('lets the user override the origin, and drops routes from the old one', async () => {
+    getCurrentLocation.mockResolvedValue({ lat: -37.8136, lon: 144.9631 })
+    reverseGeocode.mockResolvedValue({ location: { label: 'Flinders Street' } })
+    const store = useNavigationStore()
+    await store.locateUser()
+    store.routes = [route]
+
+    store.chooseOrigin({ label: 'Queen Victoria Market', lat: -37.8076, lon: 144.9568 })
+
+    expect(store.origin).toEqual({ lat: -37.8076, lon: 144.9568 })
+    expect(store.originLabel).toBe('Queen Victoria Market')
+    expect(store.originIsCurrentLocation).toBe(false)
+    expect(store.routes).toEqual([])
+  })
+
+  it('searches for origins without clobbering the destination search', async () => {
+    searchDestinations.mockResolvedValue({ results: [{ label: 'Southern Cross' }] })
+    const store = useNavigationStore()
+
+    await store.findOrigins('Southern')
+
+    expect(store.originSuggestions).toEqual([{ label: 'Southern Cross' }])
+    expect(store.suggestions).toEqual([])
+  })
+})

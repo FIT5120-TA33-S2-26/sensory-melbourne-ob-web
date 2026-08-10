@@ -8,6 +8,15 @@ export const useNavigationStore = defineStore('navigation', () => {
   const origin = ref(null)
   const originLabel = ref('Finding your location…')
   const locationError = ref('')
+  // Origin search. Browser geolocation is a starting point, not a constraint:
+  // outside the CBD it produces long routes with little sensor coverage, and
+  // there was previously no way to say "start me somewhere else".
+  const originQuery = ref('')
+  const originSuggestions = ref([])
+  const originSearchStatus = ref('idle')
+  const originSearchError = ref('')
+  const originIsCurrentLocation = ref(true)
+  let originController
   const destination = ref('')
   const destinationPoint = ref(null)
   const suggestions = ref([])
@@ -32,6 +41,7 @@ export const useNavigationStore = defineStore('navigation', () => {
     originLabel.value = 'Finding your location…'
     try {
       origin.value = await getCurrentLocation()
+      originIsCurrentLocation.value = true
       originLabel.value = 'Current location'
       try {
         const response = await reverseGeocode(origin.value)
@@ -39,10 +49,56 @@ export const useNavigationStore = defineStore('navigation', () => {
       } catch {
         // Coordinates are sufficient for routing; a failed label lookup is cosmetic.
       }
+      // Deliberately NOT prefilled into originQuery. The search box is bound to
+      // it, and writing a label in programmatically trips the component's
+      // change watcher — which fired a geocode search for the user's own
+      // address on every page load. An empty box reading "Search starting
+      // point" also says the right thing: the origin is your location until
+      // you type something else. The active origin is shown above the field.
+      originQuery.value = ''
     } catch (error) {
       locationError.value = error.message
       originLabel.value = 'Location unavailable'
     }
+  }
+
+  async function findOrigins(query) {
+    originQuery.value = query
+    if (query.trim().length < 2) {
+      originSuggestions.value = []
+      originSearchStatus.value = 'idle'
+      return
+    }
+    originController?.abort()
+    originController = new AbortController()
+    originSearchStatus.value = 'loading'
+    originSearchError.value = ''
+    try {
+      // Bias results toward wherever the origin currently is, same as the
+      // destination search does.
+      const response = await searchDestinations(query, origin.value, originController.signal)
+      originSuggestions.value = response.results
+      originSearchStatus.value = 'success'
+    } catch (error) {
+      if (error.name === 'AbortError') return
+      originSuggestions.value = []
+      originSearchError.value = error.message
+      originSearchStatus.value = 'error'
+    }
+  }
+
+  function chooseOrigin(result) {
+    origin.value = { lat: result.lat, lon: result.lon }
+    originLabel.value = result.label
+    originQuery.value = result.label
+    originIsCurrentLocation.value = false
+    originSuggestions.value = []
+    originSearchStatus.value = 'idle'
+    locationError.value = ''
+    // Any routes on screen were computed from the previous origin.
+    routes.value = []
+    routeStatus.value = 'idle'
+    routeError.value = ''
   }
 
   async function findDestinations(query) {
@@ -124,6 +180,11 @@ export const useNavigationStore = defineStore('navigation', () => {
     origin,
     originLabel,
     locationError,
+    originQuery,
+    originSuggestions,
+    originSearchStatus,
+    originSearchError,
+    originIsCurrentLocation,
     destination,
     destinationPoint,
     suggestions,
@@ -138,6 +199,8 @@ export const useNavigationStore = defineStore('navigation', () => {
     attribution,
     dataAsOf,
     locateUser,
+    findOrigins,
+    chooseOrigin,
     findDestinations,
     chooseDestination,
     clearDestinationSelection,

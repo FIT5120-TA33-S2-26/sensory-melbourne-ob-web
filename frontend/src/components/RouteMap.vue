@@ -61,7 +61,11 @@ function drawRoutes() {
         })
           .addTo(routeLayer)
           .bindTooltip(
-            `${segment.band === 'unknown' ? 'Unknown' : segment.band} sensory data · ${Math.round(segment.distance)} m`,
+            // "unknown stress" would read as a claim about the street. It is a
+            // claim about our coverage, so that case gets its own wording.
+            segment.band === 'unknown'
+              ? `No sensor coverage · ${Math.round(segment.distance)} m`
+              : `${segment.band} stress · ${Math.round(segment.distance)} m`,
           )
       })
     }

@@ -8,6 +8,12 @@ const props = defineProps({
   suggestions: { type: Array, default: () => [] },
   loading: { type: Boolean, default: false },
   error: { type: String, default: '' },
+  // Defaults keep the destination usage byte-identical. They exist so the same
+  // component can also drive the origin field — two instances on one page must
+  // not share a DOM id, or the label and aria-controls point at the wrong box.
+  inputId: { type: String, default: 'destination' },
+  label: { type: String, default: 'Search destination' },
+  placeholder: { type: String, default: 'Search destination' },
 })
 const emit = defineEmits(['search', 'select', 'submit'])
 const open = ref(false)
@@ -48,16 +54,16 @@ onBeforeUnmount(() => clearTimeout(debounceTimer))
 <template>
   <div class="search-wrap">
     <form class="destination-search" role="search" @submit.prevent="submit">
-      <label class="sr-only" for="destination">Search destination</label>
+      <label class="sr-only" :for="inputId">{{ label }}</label>
       <input
-        id="destination"
+        :id="inputId"
         v-model="model"
         type="search"
-        placeholder="Search destination"
+        :placeholder="placeholder"
         autocomplete="off"
         aria-autocomplete="list"
         :aria-expanded="open"
-        aria-controls="destination-results"
+        :aria-controls="`${inputId}-results`"
         @focus="open = suggestions.length > 0"
       />
       <span v-if="loading" class="searching" aria-label="Searching"></span>
@@ -65,7 +71,7 @@ onBeforeUnmount(() => clearTimeout(debounceTimer))
     </form>
     <ul
       v-if="open && suggestions.length"
-      id="destination-results"
+      :id="`${inputId}-results`"
       class="suggestions"
       role="listbox"
     >

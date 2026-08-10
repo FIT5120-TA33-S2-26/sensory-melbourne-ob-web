@@ -87,7 +87,10 @@ const freshness = computed(() => {
                 ><strong>{{ route.duration }} min</strong
                 ><small>{{ route.distance }} m</small></span
               >
-              <span class="route-score">{{ route.stress ?? '—' }}<small>stress</small></span>
+              <span class="route-score" :class="{ partial: route.confidence === 'partial' }"
+                >{{ route.stress ?? '—'
+                }}<small>{{ route.confidence === 'partial' ? 'part. stress' : 'stress' }}</small></span
+              >
               <span v-if="route.caution" class="route-caution">{{ route.caution }}</span>
               <span class="route-coverage">{{ route.coveragePct }}% sensory coverage</span>
             </button>
@@ -194,6 +197,16 @@ h1 {
   padding-left: 10px;
   border-left: 1px solid var(--border);
   font-size: 1.05rem;
+}
+/* A score measured over part of the route is still a real number, so it is
+   shown — but it must not read as the same kind of statement as a fully
+   measured one. The dashed rule is the cheapest honest signal. */
+.route-score.partial {
+  border-left-style: dashed;
+  color: var(--muted);
+}
+.route-score.partial small {
+  letter-spacing: -0.01em;
 }
 .route-caution,
 .route-coverage {

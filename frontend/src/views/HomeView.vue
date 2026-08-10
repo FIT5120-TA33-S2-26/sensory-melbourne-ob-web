@@ -29,7 +29,10 @@ onMounted(() => {
         <div class="location-block">
           <span class="location-icon"><AppIcon name="location" :size="25" /></span>
           <div>
-            <small>Current location</small><strong>{{ navigation.originLabel }}</strong>
+            <small>{{
+              navigation.originIsCurrentLocation ? 'Current location' : 'Starting point'
+            }}</small
+            ><strong>{{ navigation.originLabel }}</strong>
           </div>
         </div>
         <p v-if="navigation.locationError" class="location-error" role="alert">
@@ -46,6 +49,41 @@ onMounted(() => {
         <p class="eyebrow">Plan a calmer journey</p>
         <h2>Where would you like to go?</h2>
         <p>We’ll compare walking routes using crowd and sensory information.</p>
+
+        <div class="field">
+          <div class="field-head">
+            <label class="field-label" for="origin">Starting point</label>
+            <button
+              v-if="!navigation.originIsCurrentLocation"
+              class="link-button"
+              type="button"
+              @click="navigation.locateUser"
+            >
+              Use my location
+            </button>
+          </div>
+          <!-- Only when the box is empty. Once a starting point is chosen the
+               box itself shows it, and repeating it here reads as two fields. -->
+          <p v-if="!navigation.originQuery" class="field-current">
+            Starting from <strong>{{ navigation.originLabel }}</strong>
+          </p>
+          <DestinationSearch
+            v-model="navigation.originQuery"
+            input-id="origin"
+            label="Search starting point"
+            placeholder="Search starting point"
+            :suggestions="navigation.originSuggestions"
+            :loading="navigation.originSearchStatus === 'loading'"
+            :error="navigation.originSearchError"
+            @search="navigation.findOrigins"
+            @select="navigation.chooseOrigin"
+            @submit="planRoute"
+          />
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="destination">Destination</label>
+        </div>
         <DestinationSearch
           v-model="navigation.destination"
           :suggestions="navigation.suggestions"
@@ -118,7 +156,8 @@ onMounted(() => {
   font-size: 0.82rem;
   line-height: 1.4;
 }
-.location-error button {
+.location-error button,
+.link-button {
   padding: 0;
   border: 0;
   color: var(--teal-700);
@@ -126,6 +165,38 @@ onMounted(() => {
   font-weight: 800;
   text-decoration: underline;
   cursor: pointer;
+}
+.field {
+  margin-bottom: 6px;
+}
+.field + .field {
+  margin-top: 14px;
+}
+.field-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.link-button {
+  font-size: 0.74rem;
+}
+.field-current {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.field-current strong {
+  color: var(--ink, inherit);
 }
 .crowd-summary {
   max-width: 360px;
