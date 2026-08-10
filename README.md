@@ -292,3 +292,183 @@ npm run build
 - Sensory-model weights are expert-set and still require usability calibration.
 - Noise is not included in the route score; a measured-point overlay has not yet
   been added to the web interface.
+
+## Production deployment on Amazon EC2
+
+The production stack runs on one x86_64 EC2 instance:
+
+```text
+Internet :80/:443
+        |
+        v
+   Caddy + Vue
+        | /api/* on the private Docker network
+        v
+ Flask + Gunicorn
+        |
+        v
+ PostgreSQL/PostGIS + persistent Docker volume
+```
+
+Caddy serves the Vue build, sends all `/api/*` traffic to Flask, provides the
+Vue Router fallback, and obtains/renews HTTPS certificates. PostgreSQL and
+Gunicorn do not publish host ports.
+
+### 1. Create the EC2 instance
+
+Recommended prototype configuration:
+
+- Ubuntu 24.04 LTS, x86_64
+- `t3.small` or larger
+- 30 GiB gp3 EBS
+- an Elastic IP
+- Sydney (`ap-southeast-2`) when latency to Melbourne matters
+
+Allow these inbound security-group rules:
+
+| Port | Source | Purpose |
+|---|---|---|
+| 22 | your current public IP only | SSH |
+| 80 | `0.0.0.0/0`, `::/0` | HTTP and certificate validation |
+| 443 | `0.0.0.0/0`, `::/0` | HTTPS |
+
+Do not open ports 5432 or 5500.
+
+### 2. Install Docker
+
+Connect to the instance:
+
+```bash
+ssh -i sensory-melbourne.pem ubuntu@YOUR_ELASTIC_IP
+```
+
+Install Docker and the Compose plugin:
+
+```bash
+sudo apt update
+sudo apt install -y docker.io docker-compose-v2 git
+sudo systemctl enable --now docker
+sudo usermod -aG docker ubuntu
+```
+
+Log out and reconnect so the Docker group membership takes effect.
+
+### 3. Clone and configure the application
+
+```bash
+mkdir sensory-melbourne
+cd sensory-melbourne
+git clone https://github.com/FIT5120-TA33-S2-26/sensory-melbourne-ob-data.git
+git clone https://github.com/FIT5120-TA33-S2-26/sensory-melbourne-ob-web.git
+git -C sensory-melbourne-ob-data checkout 7b7fc6ada9c64a6f5129af43e1a21d5669666886
+cd sensory-melbourne-ob-web
+cp .env.production.example .env.production
+```
+
+Both repositories are private, so authenticate with GitHub using SSH or a
+fine-grained personal access token that has read access. They must remain
+sibling directories: Compose supplies `sensory-melbourne-ob-data/model` to the
+API build as a private local build context. No GitHub credential is copied into
+the resulting image.
+
+Generate a database password containing URL-safe hexadecimal characters:
+
+```bash
+openssl rand -hex 24
+```
+
+Edit `.env.production` and set:
+
+```dotenv
+APP_DOMAIN=YOUR_ELASTIC_IP.sslip.io
+ORS_API_KEY=your_new_rotated_ors_key
+POSTGRES_USER=ta33
+POSTGRES_PASSWORD=the_generated_password
+POSTGRES_DB=ta33
+```
+
+For example, Elastic IP `3.24.10.20` can use
+`3.24.10.20.sslip.io`. `sslip.io` resolves that hostname to the embedded IP,
+allowing Caddy to obtain a normal browser-trusted certificate without buying a
+domain. A team-owned domain is preferable for a longer-lived deployment.
+
+HTTPS is required for browser geolocation on mobile devices.
+
+### 4. Build and start
+
+```bash
+docker compose \
+  --env-file .env.production \
+  -f compose.production.yaml \
+  up -d --build
+```
+
+The first startup imports the database snapshot and can take several minutes.
+Monitor it with:
+
+```bash
+docker compose --env-file .env.production -f compose.production.yaml ps
+docker compose --env-file .env.production -f compose.production.yaml logs -f db
+docker compose --env-file .env.production -f compose.production.yaml logs -f api web
+```
+
+Verify through the public HTTPS endpoint:
+
+```bash
+curl https://YOUR_ELASTIC_IP.sslip.io/api/health
+curl "https://YOUR_ELASTIC_IP.sslip.io/api/quiet-spaces?lat=-37.8136&lon=144.9631"
+```
+
+Then open `https://YOUR_ELASTIC_IP.sslip.io` on a phone and allow location
+access.
+
+### 5. Operations
+
+Deploy application updates:
+
+```bash
+git pull --ff-only
+git -C ../sensory-melbourne-ob-data pull --ff-only
+docker compose --env-file .env.production -f compose.production.yaml up -d --build
+```
+
+View recent logs:
+
+```bash
+docker compose --env-file .env.production -f compose.production.yaml logs --tail=200
+```
+
+Restart the stack:
+
+```bash
+docker compose --env-file .env.production -f compose.production.yaml restart
+```
+
+Back up PostgreSQL before database or host changes:
+
+```bash
+mkdir -p backups
+set -a
+source .env.production
+set +a
+docker compose --env-file .env.production -f compose.production.yaml \
+  exec -T db pg_dump -U "$POSTGRES_USER" "$POSTGRES_DB" \
+  | gzip > "backups/ta33-$(date +%Y%m%d-%H%M%S).sql.gz"
+```
+
+Also configure automated EBS snapshots. A Docker volume survives container
+replacement, but it does not protect against deletion or loss of the EC2
+instance and its EBS volume.
+
+### Production notes
+
+- The API image copies the scoring model from the sibling data repository at
+  build time. Check out a tested data commit before rebuilding, and record that
+  commit with the deployed web revision.
+- Updating the database image does not replace an existing PostgreSQL volume.
+  Treat production data updates and migrations separately from application
+  container updates.
+- Never commit `.env.production`, the ORS key, SSH private keys, or database
+  backups.
+- Rotate the ORS key that previously appeared in GitHub Pages history before
+  creating the EC2 deployment.

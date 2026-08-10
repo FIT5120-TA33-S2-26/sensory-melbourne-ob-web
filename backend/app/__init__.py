@@ -12,7 +12,10 @@ def create_app() -> Flask:
     """Create the Flask application used by the Vue client."""
     app = Flask(__name__)
     app.config.from_object(Config)
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    CORS(
+        app,
+        resources={r"/api/*": {"origins": app.config["CORS_ALLOWED_ORIGINS"]}},
+    )
     app.register_blueprint(geocoding_blueprint)
     app.register_blueprint(health_blueprint)
     app.register_blueprint(quiet_spaces_blueprint)
