@@ -17,6 +17,7 @@ and presents route geometry with written navigation instructions.
 - Leaflet rendering of ORS geometry
 - Low/moderate/high/unknown route-section colouring
 - Route selection and ORS turn-by-turn instructions
+- Nearby parks, libraries, docks and piers within 1.6 km of the device location
 - Honest unknown-data and location-permission error states
 
 ## Architecture
@@ -217,6 +218,16 @@ The response contains up to three routes with:
 
 ORS may return fewer than three routes when it cannot find sufficiently distinct
 walking alternatives.
+
+### Nearby quiet spaces
+
+```http
+GET /api/quiet-spaces?lat=-37.8136&lon=144.9631
+```
+
+The radius is fixed at 1,600 metres. Results are ordered by straight-line
+distance and include only categories defensibly identified by the City of
+Melbourne landmarks data: parks, named libraries, docks/marinas and piers.
 
 ## Testing outside Melbourne CBD
 
