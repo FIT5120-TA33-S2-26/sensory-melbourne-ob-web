@@ -1,4 +1,4 @@
-# Sensory Melbourne web app
+# Eazy Streetzz web app
 
 Currently hosted on AWS using EC2 at https://3.27.140.106.sslip.io 
 

@@ -56,7 +56,7 @@ async function mountAt(path, { withRoutes = false } = {}) {
   return mount(App, { global: { plugins: [router, pinia] } })
 }
 
-describe('Sensory Melbourne screens', () => {
+describe('Eazy Streetzz screens', () => {
   beforeEach(() => setActivePinia(createPinia()))
 
   it('renders the landing screen', async () => {

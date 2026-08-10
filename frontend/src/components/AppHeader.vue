@@ -6,7 +6,7 @@ import AppIcon from './AppIcon.vue'
   <header class="app-header">
     <div class="header-inner">
       <button class="menu-button" type="button" aria-label="Open menu"><AppIcon name="menu" :size="29" /></button>
-      <RouterLink class="wordmark" to="/home">Sensory Melbourne</RouterLink>
+      <RouterLink class="wordmark" to="/home">Eazy Streetzz</RouterLink>
       <nav aria-label="Primary navigation">
         <RouterLink to="/home" aria-label="Home"><AppIcon name="home" :size="29" /></RouterLink>
         <RouterLink to="/routes" aria-label="Plan a route"><AppIcon name="map" :size="30" /></RouterLink>

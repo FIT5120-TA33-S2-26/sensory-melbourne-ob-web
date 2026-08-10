@@ -1,9 +1,9 @@
 <template>
   <main class="landing">
     <div class="landing-inner">
-      <div class="logo" aria-label="Sensory Melbourne">
-        <span>Sensory</span>
-        <span>Melbourne</span>
+      <div class="logo" aria-label="Eazy Streetzz">
+        <span>Eazy</span>
+        <span>Streetzz</span>
       </div>
       <div class="welcome-copy">
         <h1>Navigate Melbourne with confidence</h1>
