@@ -24,8 +24,19 @@ class RoutesApiTest(unittest.TestCase):
 
     @patch("app.api.routes.get_scored_routes")
     def test_valid_request_returns_scored_routes(self, get_scored_routes):
+        scored_route = {
+            "id": "calmest",
+            "stress": 42,
+            "confidence": "partial",
+            "recommended": True,
+            "coveragePct": 41.2,
+            "crowdScore": 38,
+            "dataAsOf": "2026-08-09T00:00:00+10:00",
+            "segments": [{"band": "moderate", "distance": 25}],
+            "instructions": [{"text": "Head north", "distance": "50 m"}],
+        }
         get_scored_routes.return_value = {
-            "routes": [{"id": "calmest", "stress": 42}],
+            "routes": [scored_route],
             "count": 1,
             "data_as_of": "2026-08-09T00:00:00+10:00",
             "attribution": "ORS",
@@ -34,7 +45,15 @@ class RoutesApiTest(unittest.TestCase):
         response = self.client.post("/api/routes", json=REQUEST_BODY)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.get_json()["routes"][0]["id"], "calmest")
+        route = response.get_json()["routes"][0]
+        self.assertEqual(route, scored_route)
+        self.assertEqual(route["confidence"], "partial")
+        self.assertTrue(route["recommended"])
+        self.assertIn("coveragePct", route)
+        self.assertIn("crowdScore", route)
+        self.assertIn("dataAsOf", route)
+        self.assertIn("segments", route)
+        self.assertIn("instructions", route)
         origin, destination, _ = get_scored_routes.call_args.args
         self.assertEqual(origin, REQUEST_BODY["origin"])
         self.assertEqual(destination, REQUEST_BODY["destination"])

@@ -48,7 +48,13 @@ const showMap = ref(false)
             ><strong
               >{{ navigation.selectedRoute.stress ?? 'Unknown'
               }}<template v-if="navigation.selectedRoute.stress !== null"> / 100</template></strong
-            ><span>{{ navigation.selectedRoute.coveragePct }}% coverage</span>
+            ><span
+              >{{
+                navigation.selectedRoute.confidence === 'partial'
+                  ? 'Partial score · '
+                  : ''
+              }}{{ navigation.selectedRoute.coveragePct }}% coverage</span
+            >
           </div>
         </div>
 

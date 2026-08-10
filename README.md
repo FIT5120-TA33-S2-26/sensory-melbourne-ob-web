@@ -8,6 +8,7 @@ and presents route geometry with written navigation instructions.
 ## Current functionality
 
 - Browser/mobile current-location detection
+- Searchable starting-point override for testing or planning remotely
 - Reverse geocoding for the current-location label
 - CBD-bounded destination autocomplete
 - Three ORS `foot-walking` candidate routes
@@ -259,9 +260,13 @@ npm run build
 ## Important data behavior
 
 - Missing sensory evidence is `unknown`, never low/calm.
-- A route score is withheld when less than 50% of its length has usable data.
-- “Calmest” means the lowest known mean score among the candidates; it does not
-  mean the route has an absolutely low sensory score.
+- Routes with at least 50% coverage are marked `measured`; routes with 15–50%
+  coverage show a clearly labelled score for the measured portion; below 15%
+  the score is withheld.
+- Candidates rank by evidence confidence first and mean stress second. A
+  partially measured route is never recommended over a fully measured route.
+- “Calmest” means the lowest mean score in the highest available confidence
+  tier; it does not mean the route has an absolutely low sensory score.
 - All candidates can legitimately be high stress.
 - “Live” pedestrian data reflects the newest publisher reading and can carry an
   approximately 35-minute publication delay.

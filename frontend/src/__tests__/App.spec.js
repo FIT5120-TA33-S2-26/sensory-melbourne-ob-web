@@ -21,7 +21,8 @@ const routes = [
 const testRoutes = [
   {
     id: 'calmest', label: 'Calmest', description: 'Low sensory load', duration: 8,
-    distance: 620, stress: 22, crowd: 'Low', color: '#168f86', coveragePct: 100,
+    distance: 620, stress: 22, crowd: 'Low', color: '#168f86', coveragePct: 41,
+    confidence: 'partial', recommended: true,
     geometry: [[-37.81, 144.96], [-37.80, 144.97]],
     instructions: [{ text: 'Head east towards Swanston Street', distance: '120 m', stress: 22, color: '#168f86' }],
   },
@@ -73,11 +74,13 @@ describe('Sensory Melbourne screens', () => {
     expect(wrapper.findAll('.route-card')).toHaveLength(3)
     expect(wrapper.text()).toContain('Calmest')
     expect(wrapper.text()).toContain('Fastest')
+    expect(wrapper.text()).toContain('part. stress')
   })
 
   it('renders written navigation instructions', async () => {
     const wrapper = await mountAt('/navigation', { withRoutes: true })
     expect(wrapper.text()).toContain('Next instruction')
     expect(wrapper.text()).toContain('Head east towards Swanston Street')
+    expect(wrapper.text()).toContain('Partial score · 41% coverage')
   })
 })
