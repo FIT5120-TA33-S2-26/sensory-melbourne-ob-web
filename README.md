@@ -367,8 +367,7 @@ cd sensory-melbourne-ob-web
 cp .env.production.example .env.production
 ```
 
-Both repositories are private, so authenticate with GitHub using SSH or a
-fine-grained personal access token that has read access. They must remain
+Both repositories are public and they must remain 
 sibling directories: Compose supplies `sensory-melbourne-ob-data/model` to the
 API build as a private local build context. No GitHub credential is copied into
 the resulting image.
@@ -461,16 +460,3 @@ docker compose --env-file .env.production -f compose.production.yaml \
 Also configure automated EBS snapshots. A Docker volume survives container
 replacement, but it does not protect against deletion or loss of the EC2
 instance and its EBS volume.
-
-### Production notes
-
-- The API image copies the scoring model from the sibling data repository at
-  build time. Check out a tested data commit before rebuilding, and record that
-  commit with the deployed web revision.
-- Updating the database image does not replace an existing PostgreSQL volume.
-  Treat production data updates and migrations separately from application
-  container updates.
-- Never commit `.env.production`, the ORS key, SSH private keys, or database
-  backups.
-- Rotate the ORS key that previously appeared in GitHub Pages history before
-  creating the EC2 deployment.
