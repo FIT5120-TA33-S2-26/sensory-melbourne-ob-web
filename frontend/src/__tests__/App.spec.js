@@ -8,6 +8,7 @@ import App from '../App.vue'
 import HomeView from '../views/HomeView.vue'
 import LandingView from '../views/LandingView.vue'
 import NavigationView from '../views/NavigationView.vue'
+import QuietSpacesView from '../views/QuietSpacesView.vue'
 import RoutesView from '../views/RoutesView.vue'
 import { useNavigationStore } from '../stores/navigation'
 
@@ -16,6 +17,7 @@ const routes = [
   { path: '/home', component: HomeView },
   { path: '/routes', component: RoutesView },
   { path: '/navigation', component: NavigationView },
+  { path: '/quiet-spaces', component: QuietSpacesView },
 ]
 
 const testRoutes = [
@@ -82,5 +84,12 @@ describe('Sensory Melbourne screens', () => {
     expect(wrapper.text()).toContain('Next instruction')
     expect(wrapper.text()).toContain('Head east towards Swanston Street')
     expect(wrapper.text()).toContain('Partial score · 41% coverage')
+  })
+
+  it('renders the nearby quiet spaces screen', async () => {
+    const wrapper = await mountAt('/quiet-spaces')
+
+    expect(wrapper.text()).toContain('Nearby quiet spaces')
+    expect(wrapper.text()).toContain('Within 1.6 km of you')
   })
 })

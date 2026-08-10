@@ -35,6 +35,12 @@ export async function reverseGeocode(point, signal) {
   return jsonOrError(response, 'Location name is unavailable')
 }
 
+export async function getNearbyQuietSpaces(point, signal) {
+  const params = new URLSearchParams({ lat: point.lat, lon: point.lon })
+  const response = await fetch(`/api/quiet-spaces?${params}`, { signal })
+  return jsonOrError(response, 'Nearby quiet spaces are unavailable')
+}
+
 /**
  * Request normalised walking alternatives from our Flask API.
  * Flask owns the OpenRouteService key and enriches each result with sensory metrics.

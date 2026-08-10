@@ -11,6 +11,7 @@ import AppIcon from './AppIcon.vue'
         <RouterLink to="/home" aria-label="Home"><AppIcon name="home" :size="29" /></RouterLink>
         <RouterLink to="/routes" aria-label="Plan a route"><AppIcon name="map" :size="30" /></RouterLink>
         <RouterLink to="/navigation" aria-label="Current navigation"><AppIcon name="navigate" :size="29" /></RouterLink>
+        <RouterLink to="/quiet-spaces" aria-label="Nearby quiet spaces"><AppIcon name="leaf" :size="29" /></RouterLink>
       </nav>
     </div>
   </header>

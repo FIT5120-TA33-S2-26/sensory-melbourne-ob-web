@@ -16,6 +16,9 @@ defineProps({
     <template v-else-if="name === 'arrow'"><path d="m9 18 6-6-6-6" /></template>
     <template v-else-if="name === 'clock'"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></template>
     <template v-else-if="name === 'walk'"><circle cx="13" cy="4" r="2" /><path d="m10 22 2-7-3-3 2-5 5 3 3 1M6 22l3-6M15 22l-3-7" /></template>
+    <template v-else-if="name === 'leaf'"><path d="M20 4C12 4 5 8 5 15c0 3 2 5 5 5 7 0 10-8 10-16Z" /><path d="M4 21c3-5 7-8 12-11" /></template>
+    <template v-else-if="name === 'book'"><path d="M4 5a3 3 0 0 1 3-3h5v18H7a3 3 0 0 0-3 3Z" /><path d="M20 5a3 3 0 0 0-3-3h-5v18h5a3 3 0 0 1 3 3Z" /></template>
+    <template v-else-if="name === 'anchor'"><circle cx="12" cy="5" r="2" /><path d="M12 7v14M5 12H2c0 5.5 4.5 9 10 9s10-3.5 10-9h-3M8 10h8" /></template>
     <template v-else><circle cx="12" cy="12" r="9" /></template>
   </svg>
 </template>
