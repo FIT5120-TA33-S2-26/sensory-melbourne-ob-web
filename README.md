@@ -1,5 +1,7 @@
 # Sensory Melbourne web app
 
+Currently hosted on AWS using EC2 at https://3.27.140.106.sslip.io 
+
 Vue 3, Leaflet and Flask application for sensory-aware pedestrian wayfinding in
 Melbourne CBD. The application requests walking alternatives from
 OpenRouteService (ORS), scores them using the PostgreSQL/PostGIS data pipeline,
